@@ -204,4 +204,34 @@ class studentController extends Controller
 
         return response()->json($data, 200);
     }
+
+    public function restore($id)
+    {
+        $student = Student::withTrashed()->find($id);
+        if (!$student) {
+            $data = [
+                'message' => 'Estudiante no encontrado.',
+                'status' => 404
+            ];
+            return response()->json($data, 404);
+        }
+
+        if (!$student->trashed()) {
+            $data = [
+                'message' => 'El estudiante no está eliminado.',
+                'status' => 400
+            ];
+            return response()->json($data, 400);
+        }
+
+        $student->restore();
+
+        $data = [
+            'message' => 'Estudiante restaurado exitosamente.',
+            'student' => $student,
+            'status' => 200
+        ];
+
+        return response()->json($data, 200);
+    }
 }
