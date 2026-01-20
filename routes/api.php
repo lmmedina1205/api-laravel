@@ -16,4 +16,6 @@ Route::patch('/students/{id}', [studentController::class, 'updatePartial']);
 
 Route::delete('/students/{id}', [studentController::class, 'destroy']);
 
+Route::post('/students/deleted', [studentController::class, 'destroyAll']);
+
 Route::post('/students/{id}', [studentController::class, 'restore']);

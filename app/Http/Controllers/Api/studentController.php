@@ -111,6 +111,18 @@ class studentController extends Controller
         return response()->json($data, 200);
     }
 
+    public function destroyAll()
+    {
+        Student::query()->delete();
+
+        $data = [
+            'message' => 'Todos los estudiantes han sido eliminados.',
+            'status' => 200
+        ];
+
+        return response()->json($data, 200);
+    }
+
     public function update(Request $request, $id)
     {
         $student = Student::find($id);
